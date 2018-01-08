@@ -7,7 +7,7 @@ var OptimizeJsPlugin = require('optimize-js-plugin');
 var env = process.env.NODE_ENV || 'development';
 var plugins = [
 new HtmlWebpackPlugin({
-        template: 'src/index.html',
+        template: 'index.html',
         filename: 'index.html',
         inject: 'body',
     })
@@ -23,22 +23,23 @@ plugins.push(
     })
   );
 }
-
+console.log(__dirname);
 //webpack.config.js
 module.exports = {
     entry: [ 
         'react-hot-loader/patch',
-        './src/index.js'
+        './index.js'
         ],
     output: {
-        path: path.resolve(__dirname, 'src'),
+        path: path.resolve(__dirname, './build'),
         filename: 'index.bundle.js'
     },
     module: {
     	rules: [
     		{
     			test: /\.js$/,
-    			loader: "babel-loader"
+    			loader: "babel-loader",
+    			exclude: path.resolve(__dirname, 'node_modules') 
     		},
     		{
        			test: /\.css$/,
@@ -54,16 +55,5 @@ module.exports = {
     		}
     	]
     },
-    plugins: [
-        new HtmlWebpackPlugin({
-            template: 'src/index.html',
-            filename: 'index.html',
-            inject: 'body'
-        }),
-        new webpack.optimize.UglifyJsPlugin(),
-        new OptimizeJsPlugin ({
-            sourceMap: true
-        })
-	]
+    plugins: plugins
 };
-
