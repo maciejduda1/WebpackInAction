@@ -51,7 +51,8 @@ module.exports = {
                     		modules: true
                 		}
             		}
-        		]
+        		],
+				exclude: path.resolve(__dirname, 'node_modules')
     		}
     	]
     },
